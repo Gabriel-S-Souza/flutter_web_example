@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 10),
             Text(
-              '${serviceTest.message} foi injetado',
+              serviceTest.message,
               style: Theme.of(context).textTheme.headline6,
             ),
           ],
