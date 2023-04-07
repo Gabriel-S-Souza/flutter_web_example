@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_web_test/app_module.dart';
+import 'package:flutter_web_test/home_screen.dart';
+import 'package:flutter_web_test/second_screen.dart';
+import 'package:flutter_web_test/setup_locator.dart';
 
 void main() {
-  runApp(
-    ModularApp(
-      module: AppModule(),
-      child: const AppWidget(),
-    ),
-  );
+  setupLocator();
+  runApp(const AppWidget());
 }
 
 class AppWidget extends StatelessWidget {
@@ -16,13 +13,20 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-        title: 'Flutter Web Test',
-        routeInformationParser: Modular.routeInformationParser,
-        routerDelegate: Modular.routerDelegate,
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ));
+    return MaterialApp(
+      title: 'Flutter Web Test',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(
+              title: 'Flutter Web Test',
+            ),
+        '/second': (context) => const SecondScreen(
+              title: 'Second Screen',
+            ),
+      },
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+    );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_web_test/service_test.dart';
+import 'package:flutter_web_test/setup_locator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -8,19 +8,11 @@ class HomeScreen extends StatefulWidget {
   final String title;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _SecondScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
-  final ServiceTest serviceTest = Modular.get();
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _SecondScreenState extends State<HomeScreen> {
+  final ServiceTest controller = getIt<ServiceTest>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,15 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Contador',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              'Home screen',
             ),
             const SizedBox(height: 10),
             Text(
-              '${serviceTest.message} foi injetado',
+              controller.message,
               style: Theme.of(context).textTheme.headline6,
             ),
           ],
@@ -50,14 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 10),
-          FloatingActionButton(
             onPressed: () {
-              Modular.to.pushNamed('/second');
+              Navigator.of(context).pushNamed('/second');
             },
             tooltip: 'Second screen',
             child: const Icon(Icons.arrow_forward),

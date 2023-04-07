@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_web_test/home_screen_module.dart';
+import 'package:flutter_web_test/service_test.dart';
+import 'package:flutter_web_test/setup_locator.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({super.key, required this.title});
@@ -12,7 +12,12 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  final HomeScreenExampleController controller = Modular.get();
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  final ServiceTest controller = getIt<ServiceTest>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +33,7 @@ class _SecondScreenState extends State<SecondScreen> {
             ),
             const SizedBox(height: 10),
             Text(
-              '${controller.title} foi injetado',
+              controller.message,
               style: Theme.of(context).textTheme.headline6,
             ),
           ],
@@ -37,16 +42,9 @@ class _SecondScreenState extends State<SecondScreen> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // FloatingActionButton(
-          //   onPressed: () {
-          //     Modular.to.pushNamed('/third');
-          //   },
-          //   tooltip: 'Third screen',
-          //   child: const Icon(Icons.add),
-          // ),
           FloatingActionButton(
             onPressed: () {
-              Modular.to.pop();
+              Navigator.of(context).pop();
             },
             tooltip: 'Back',
             child: const Icon(Icons.arrow_back),
