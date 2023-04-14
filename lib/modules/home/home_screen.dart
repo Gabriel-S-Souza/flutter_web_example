@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_web_test/service_test.dart';
+import 'package:flutter_web_test/modules/home/service_home.dart';
+import 'package:flutter_web_test/service_global.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -12,14 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
-  final ServiceTest serviceTest = Modular.get();
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final ServiceGlobal serviceGlobal = Modular.get();
+  final ServiceHome serviceHome = Modular.get();
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +26,15 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Contador',
-            ),
+            const SizedBox(height: 10),
             Text(
-              '$_counter',
+              serviceGlobal.message,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 10),
             Text(
-              serviceTest.message,
-              style: Theme.of(context).textTheme.headline6,
+              serviceHome.message,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
@@ -49,17 +42,25 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
+          FloatingActionButton.extended(
+            onPressed: () => setState(() => serviceGlobal.increment()),
+            heroTag: 'home increment global',
+            label: const Text('Increment Global'),
+            icon: const Icon(Icons.add),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton.extended(
+            onPressed: () => setState(() => serviceHome.increment()),
+            heroTag: 'home increment home',
+            label: const Text('Increment Home'),
+            icon: const Icon(Icons.add),
           ),
           const SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 'home back home',
             onPressed: () {
               Modular.to.pushNamed('/second');
             },
-            tooltip: 'Second screen',
             child: const Icon(Icons.arrow_forward),
           ),
         ],
