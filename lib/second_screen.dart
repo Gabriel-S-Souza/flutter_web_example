@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_test/service_test.dart';
 import 'package:flutter_web_test/setup_locator.dart';
+import 'package:flutter_web_test/user_model.dart';
+import 'package:go_router/go_router.dart';
 
 class SecondScreen extends StatefulWidget {
-  const SecondScreen({super.key, required this.title});
-
   final String title;
+  final UserModel user;
+
+  const SecondScreen({
+    super.key,
+    required this.title,
+    required this.user,
+  });
 
   @override
   State<SecondScreen> createState() => _SecondScreenState();
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   final ServiceTest controller = getIt<ServiceTest>();
   @override
   Widget build(BuildContext context) {
@@ -28,14 +30,18 @@ class _SecondScreenState extends State<SecondScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Second screen',
-            ),
-            const SizedBox(height: 10),
+            Text('User: ${widget.user.name}', style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: 20),
             Text(
-              controller.message,
-              style: Theme.of(context).textTheme.headline6,
+              'Email: ${widget.user.email}',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const SizedBox(height: 20),
+            Text(
+              'ID: ${controller.id}',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -44,7 +50,7 @@ class _SecondScreenState extends State<SecondScreen> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              context.go('/');
             },
             tooltip: 'Back',
             child: const Icon(Icons.arrow_back),
