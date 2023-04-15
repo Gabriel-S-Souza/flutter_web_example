@@ -26,12 +26,12 @@ class _ThirdScreenState extends State<ThirdScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Text(
               serviceGlobal.message,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Text(
               serviceThird.message,
               style: Theme.of(context).textTheme.headlineMedium,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_web_test/modules/second/models/user_model.dart';
 import 'package:flutter_web_test/modules/second/submodules/child_second/service_child_second.dart';
 import 'package:flutter_web_test/service_global.dart';
 
@@ -7,9 +8,16 @@ import '../../../../nav_fix/hybrid_navigator.dart';
 import '../../service_second.dart';
 
 class ChildSecondScreen extends StatefulWidget {
-  const ChildSecondScreen({super.key, required this.title});
-
   final String title;
+  final String id;
+  final UserModel user;
+
+  const ChildSecondScreen({
+    super.key,
+    required this.title,
+    required this.id,
+    required this.user,
+  });
 
   @override
   State<ChildSecondScreen> createState() => _ChildSecondScreenState();
@@ -21,11 +29,6 @@ class _ChildSecondScreenState extends State<ChildSecondScreen> {
   final ServiceSecond serviceSecond = Modular.get();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
@@ -33,19 +36,23 @@ class _ChildSecondScreenState extends State<ChildSecondScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const SizedBox(height: 10),
+            Text(
+              'Id: ${widget.id}',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'User: ${widget.user.name} - ${widget.user.email}',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(height: 20),
             Text(
               serviceGlobal.message,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Text(
               serviceChildSecond.message,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              serviceSecond.message,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_web_test/modules/second/models/user_model.dart';
 import 'package:flutter_web_test/modules/second/service_second.dart';
 import 'package:flutter_web_test/service_global.dart';
 
@@ -17,31 +18,89 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   final ServiceGlobal serviceGlobal = Modular.get();
   final ServiceSecond serviceSecond = Modular.get();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController idController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    idController.text = serviceSecond.count.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const SizedBox(height: 10),
-            Text(
-              serviceGlobal.message,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              serviceSecond.message,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => Modular.to.pushNamed('/second/child_second'),
-              child: const Text('Go to Child Second Module'),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.2),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                      ),
+                      keyboardType: TextInputType.name,
+                    ),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: _decrementId,
+                          icon: const Icon(Icons.arrow_left),
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: idController,
+                            readOnly: true,
+                            decoration: const InputDecoration(
+                              labelText: 'Id',
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: _incrementId,
+                          icon: const Icon(Icons.arrow_right),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
+              Text(
+                serviceGlobal.message,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () => Modular.to.pushNamed(
+                  '/second/child_second/${serviceSecond.count}?title=Child Second',
+                  arguments: UserModel(
+                    name: nameController.text,
+                    email: emailController.text,
+                  ),
+                ),
+                child: const Text('Go to Child Second Module'),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: Column(
@@ -72,9 +131,7 @@ class _SecondScreenState extends State<SecondScreen> {
           const SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
-              Modular.to.canPop()
-                  ? Modular.to.pop()
-                  : Modular.to.pushNamedAndRemoveUntil('/', (_) => false);
+              Modular.to.canPop() ? Modular.to.pop() : Modular.to.navigate('/');
             },
             tooltip: 'Back',
             child: const Icon(Icons.arrow_back),
@@ -82,5 +139,19 @@ class _SecondScreenState extends State<SecondScreen> {
         ],
       ),
     );
+  }
+
+  void _incrementId() {
+    setState(() {
+      serviceSecond.increment();
+      idController.text = serviceSecond.count.toString();
+    });
+  }
+
+  void _decrementId() {
+    setState(() {
+      serviceSecond.decrement();
+      idController.text = serviceSecond.count.toString();
+    });
   }
 }
