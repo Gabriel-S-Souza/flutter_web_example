@@ -6,12 +6,12 @@ import 'package:go_router/go_router.dart';
 
 class SecondScreen extends StatefulWidget {
   final String title;
-  final UserModel user;
+  final UserModel? user;
 
   const SecondScreen({
     super.key,
     required this.title,
-    required this.user,
+     this.user,
   });
 
   @override
@@ -30,10 +30,16 @@ class _SecondScreenState extends State<SecondScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('User: ${widget.user.name}', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'Can Pop: ${context.canPop()}', 
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 20),
             Text(
-              'Email: ${widget.user.email}',
+              'User: ${widget.user?.name.toString()}', style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: 20),
+            Text(
+              'Email: ${widget.user?.email.toString()}',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 20),

@@ -39,6 +39,7 @@ class _SecondScreenState extends State<HomeScreen> {
               padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.2),
               child: Column(
                 children: [
+                  
                   TextField(
                     controller: nameController,
                     decoration: const InputDecoration(
@@ -103,7 +104,7 @@ class _SecondScreenState extends State<HomeScreen> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              context.goNamed(
+              context.pushNamed(
                 'second',
                 params: {'id': controller.id.toString()},
                 queryParams: {

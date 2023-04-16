@@ -58,7 +58,7 @@ final _router = GoRouter(
       name: 'second',
       builder: (context, state) => SecondScreen(
         title: 'Second',
-        user: state.extra as UserModel,
+        user: state.extra as UserModel?,
       ),
     ),
   ],
