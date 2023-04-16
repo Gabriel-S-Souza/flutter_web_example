@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_test/service_test.dart';
 import 'package:flutter_web_test/setup_locator.dart';
 import 'package:flutter_web_test/user_model.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -104,25 +103,25 @@ class _SecondScreenState extends State<HomeScreen> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              context.pushNamed(
-                'second',
-                params: {'id': controller.id.toString()},
-                queryParams: {
-                  'name': nameController.text,
-                  'email': emailController.text,
-                },
-                extra: UserModel(
-                  name: nameController.text,
-                  email: emailController.text,
-                ),
-              );
-              // Navigator.of(context).pushNamed(
-              //   '/second',
-              //   arguments: UserModel(
+              // context.pushNamed(
+              //   'second',
+              //   params: {'id': controller.id.toString()},
+              //   queryParams: {
+              //     'name': nameController.text,
+              //     'email': emailController.text,
+              //   },
+              //   extra: UserModel(
               //     name: nameController.text,
               //     email: emailController.text,
               //   ),
               // );
+              Navigator.of(context).pushNamed(
+                '/second',
+                arguments: UserModel(
+                  name: nameController.text,
+                  email: emailController.text,
+                ),
+              );
             },
             tooltip: 'Second screen',
             child: const Icon(Icons.arrow_forward),

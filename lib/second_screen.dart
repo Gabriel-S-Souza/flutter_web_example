@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_test/service_test.dart';
 import 'package:flutter_web_test/setup_locator.dart';
 import 'package:flutter_web_test/user_model.dart';
-import 'package:go_router/go_router.dart';
 
 class SecondScreen extends StatefulWidget {
   final String title;
@@ -31,7 +30,7 @@ class _SecondScreenState extends State<SecondScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Can Pop: ${context.canPop()}', 
+              'Can Pop: ${Navigator.of(context).canPop()}',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 20),
@@ -56,7 +55,7 @@ class _SecondScreenState extends State<SecondScreen> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              context.go('/');
+              Navigator.of(context).pop();
             },
             tooltip: 'Back',
             child: const Icon(Icons.arrow_back),
