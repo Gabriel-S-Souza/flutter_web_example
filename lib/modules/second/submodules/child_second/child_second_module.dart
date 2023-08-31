@@ -16,7 +16,7 @@ class ChildSecondModule extends Module {
           child: (_, args) => ChildSecondScreen(
             title: args.queryParams['title']!,
             id: args.params['id']!,
-            user: args.data,
+            // user: args.data,
           ),
         ),
       ];

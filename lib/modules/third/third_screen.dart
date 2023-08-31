@@ -58,7 +58,8 @@ class _ThirdScreenState extends State<ThirdScreen> {
           const SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
-              HybridNavigator.pop();
+              // HybridNavigator.pop();
+              Modular.to.pop();
             },
             heroTag: 'third back home',
             tooltip: 'Back',

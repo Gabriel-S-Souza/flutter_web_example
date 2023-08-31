@@ -6,9 +6,9 @@ import 'package:flutter_web_test/service_global.dart';
 import 'modules/second/second_screen_module.dart';
 import 'modules/third/third_screen_module.dart';
 
-import './nav_fix/nav_fix_stub.dart'
-    if (dart.library.io) './nav_fix/nav_fix_mobile.dart'
-    if (dart.library.html) './nav_fix/nav_fix_web.dart';
+// import './nav_fix/nav_fix_stub.dart'
+//     if (dart.library.io) './nav_fix/nav_fix_mobile.dart'
+//     if (dart.library.html) './nav_fix/nav_fix_web.dart';
 
 class AppModule extends Module {
   final bool showDebbugBanner;
@@ -17,7 +17,7 @@ class AppModule extends Module {
   @override
   List<Bind> binds = [
     Bind.lazySingleton((i) => ServiceGlobal()),
-    Bind.factory<INavFix>((i) => NavFix()),
+    // Bind.factory<INavFix>((i) => NavFix()),
   ];
 
   @override

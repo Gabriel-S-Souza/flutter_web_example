@@ -92,10 +92,10 @@ class _SecondScreenState extends State<SecondScreen> {
               ElevatedButton(
                 onPressed: () => Modular.to.pushNamed(
                   '/second/child_second/${serviceSecond.count}?title=Child Second',
-                  arguments: UserModel(
-                    name: nameController.text,
-                    email: emailController.text,
-                  ),
+                  // arguments: UserModel(
+                  //   name: nameController.text,
+                  //   email: emailController.text,
+                  // ),
                 ),
                 child: const Text('Go to Child Second Module'),
               ),

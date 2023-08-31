@@ -10,13 +10,13 @@ import '../../service_second.dart';
 class ChildSecondScreen extends StatefulWidget {
   final String title;
   final String id;
-  final UserModel user;
+  // final UserModel user;
 
   const ChildSecondScreen({
     super.key,
     required this.title,
     required this.id,
-    required this.user,
+    // required this.user,
   });
 
   @override
@@ -38,11 +38,6 @@ class _ChildSecondScreenState extends State<ChildSecondScreen> {
           children: <Widget>[
             Text(
               'Id: ${widget.id}',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'User: ${widget.user.name} - ${widget.user.email}',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 20),
@@ -71,7 +66,8 @@ class _ChildSecondScreenState extends State<ChildSecondScreen> {
           const SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
-              HybridNavigator.pop();
+              // HybridNavigator.pop();
+              Modular.to.pop();
             },
             heroTag: 'child second back',
             tooltip: 'Back',
