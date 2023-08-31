@@ -5,12 +5,18 @@ import 'package:flutter_web_test/modules/second/submodules/child_second/child_se
 
 class SecondModule extends Module {
   @override
-  List<Bind> get binds => [Bind.lazySingleton((i) => ServiceSecond())];
+  void binds(Injector i) {
+    super.binds(i);
+    i.addLazySingleton(ServiceSecond.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute(Modular.initialRoute,
-            child: (_, args) => const SecondScreen(title: 'Second Screen')),
-        ModuleRoute('/child_second', module: ChildSecondModule()),
-      ];
+  void routes(RouteManager r) {
+    super.routes(r);
+    r.child(
+      '/',
+      child: (context) => const SecondScreen(title: 'Second Screen'),
+    );
+    r.add(ModuleRoute('/child_second', module: ChildSecondModule()));
+  }
 }

@@ -5,16 +5,18 @@ import 'package:flutter_web_test/service_global.dart';
 
 class HomeModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind.lazySingleton((i) => ServiceGlobal()),
-        Bind.lazySingleton((i) => ServiceHome()),
-      ];
+  void binds(Injector i) {
+    super.binds(i);
+    i.addLazySingleton(ServiceGlobal.new);
+    i.addLazySingleton(ServiceHome.new);
+  }
 
   @override
-  List<ModularRoute> get routes => [
-        ChildRoute(
-          Modular.initialRoute,
-          child: (_, args) => const HomeScreen(title: 'Home screen \u{1F3E0}'),
-        ),
-      ];
+  void routes(RouteManager r) {
+    super.routes(r);
+    r.child(
+      Modular.initialRoute,
+      child: (context) => const HomeScreen(title: 'Home screen \u{1F3E0}'),
+    );
+  }
 }

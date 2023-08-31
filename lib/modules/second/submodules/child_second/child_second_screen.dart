@@ -4,19 +4,18 @@ import 'package:flutter_web_test/modules/second/models/user_model.dart';
 import 'package:flutter_web_test/modules/second/submodules/child_second/service_child_second.dart';
 import 'package:flutter_web_test/service_global.dart';
 
-import '../../../../nav_fix/hybrid_navigator.dart';
 import '../../service_second.dart';
 
 class ChildSecondScreen extends StatefulWidget {
   final String title;
   final String id;
-  // final UserModel user;
+  final UserModel? user;
 
   const ChildSecondScreen({
     super.key,
     required this.title,
     required this.id,
-    // required this.user,
+    this.user,
   });
 
   @override
@@ -46,6 +45,10 @@ class _ChildSecondScreenState extends State<ChildSecondScreen> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 20),
+            Text(
+              widget.user?.name ?? 'user is null',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             Text(
               serviceChildSecond.message,
               style: Theme.of(context).textTheme.headlineMedium,

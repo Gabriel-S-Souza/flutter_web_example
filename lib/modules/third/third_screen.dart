@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_web_test/modules/third/service_third.dart';
-import 'package:flutter_web_test/nav_fix/hybrid_navigator.dart';
 import 'package:flutter_web_test/service_global.dart';
 
 class ThirdScreen extends StatefulWidget {
@@ -58,7 +57,6 @@ class _ThirdScreenState extends State<ThirdScreen> {
           const SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
-              // HybridNavigator.pop();
               Modular.to.pop();
             },
             heroTag: 'third back home',

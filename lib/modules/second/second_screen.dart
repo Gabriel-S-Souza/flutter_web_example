@@ -4,8 +4,6 @@ import 'package:flutter_web_test/modules/second/models/user_model.dart';
 import 'package:flutter_web_test/modules/second/service_second.dart';
 import 'package:flutter_web_test/service_global.dart';
 
-import '../../nav_fix/hybrid_navigator.dart';
-
 class SecondScreen extends StatefulWidget {
   const SecondScreen({super.key, required this.title});
 
@@ -92,10 +90,10 @@ class _SecondScreenState extends State<SecondScreen> {
               ElevatedButton(
                 onPressed: () => Modular.to.pushNamed(
                   '/second/child_second/${serviceSecond.count}?title=Child Second',
-                  // arguments: UserModel(
-                  //   name: nameController.text,
-                  //   email: emailController.text,
-                  // ),
+                  arguments: UserModel(
+                    name: nameController.text,
+                    email: emailController.text,
+                  ),
                 ),
                 child: const Text('Go to Child Second Module'),
               ),

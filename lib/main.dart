@@ -18,9 +18,8 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Flutter Web Test',
-      routeInformationParser: Modular.routeInformationParser,
-      routerDelegate: Modular.routerDelegate,
       debugShowCheckedModeBanner: false,
+      routerConfig: Modular.routerConfig,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

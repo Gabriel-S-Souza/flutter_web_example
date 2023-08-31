@@ -4,12 +4,14 @@ import 'package:flutter_web_test/modules/third/third_screen.dart';
 
 class ThirdModule extends Module {
   @override
-  final List<Bind> binds = [
-    Bind.lazySingleton((i) => ServiceThird()),
-  ];
+  void binds(Injector i) {
+    super.binds(i);
+    i.addLazySingleton(ServiceThird.new);
+  }
 
   @override
-  final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, args) => const ThirdScreen(title: 'Third screen')),
-  ];
+  void routes(RouteManager r) {
+    super.routes(r);
+    r.child('/', child: (context) => const ThirdScreen(title: 'Third screen'));
+  }
 }
